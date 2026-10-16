@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07070c">
+
+<title>Marsianin Studio</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#050509;
+    color:#fff;
+    overflow-x:hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.background{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:-5;
+}
+
+.grid{
+    position:absolute;
+    inset:-100%;
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+    background-size:60px 60px;
+    transform:perspective(500px) rotateX(60deg);
+    animation:gridMove 18s linear infinite;
+}
+
+@keyframes gridMove{
+    from{
+        transform:perspective(500px) rotateX(60deg) translateY(0);
+    }
+    to{
+        transform:perspective(500px) rotateX(60deg) translateY(60px);
+    }
+}
+
+.glow{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(120px);
+    opacity:.22;
+}
+
+.glow.one{
+    width:500px;
+    height:500px;
+    background:#713cff;
+    top:-250px;
+    left:-200px;
+    animation:glowMove 9s ease-in-out infinite alternate;
+}
+
+.glow.two{
+    width:450px;
+    height:450px;
+    background:#1769ff;
+    right:-220px;
+    top:35%;
+    animation:glowMove 11s ease-in-out infinite alternate-reverse;
+}
+
+.glow.three{
+    width:400px;
+    height:400px;
+    background:#b026ff;
+    bottom:-250px;
+    left:35%;
+}
+
+@keyframes glowMove{
+    from{transform:translate(0,0)}
+    to{transform:translate(100px,70px)}
+}
+
+/* PARTICLES */
+
+#particles{
+    position:fixed;
+    inset:0;
+    z-index:-4;
+    pointer-events:none;
+}
+
+/* CURSOR GLOW */
+
+.cursor{
+    position:fixed;
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    pointer-events:none;
+    background:radial-gradient(
+        circle,
+        rgba(139,92,246,.14),
+        transparent 65%
+    );
+    transform:translate(-50%,-50%);
+    z-index:-1;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:100;
+
+    background:rgba(5,5,9,.62);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+
+    border-bottom:1px solid rgba(255,255,255,.07);
+}
+
+nav{
+    max-width:1150px;
+    height:72px;
+    margin:auto;
+    padding:0 20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:900;
+    letter-spacing:-1px;
+}
+
+.logo span{
+    background:linear-gradient(90deg,#9b6cff,#5e8cff);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.nav-links{
+    display:flex;
+    gap:28px;
+}
+
+.nav-links a{
+    color:#8f8f9d;
+    text-decoration:none;
+    font-size:14px;
+    transition:.25s;
+}
+
+.nav-links a:hover{
+    color:#fff;
+}
+
+.telegram{
+    text-decoration:none;
+    color:#fff;
+
+    padding:10px 16px;
+
+    border-radius:12px;
+
+    border:1px solid rgba(139,92,246,.4);
+
+    background:rgba(139,92,246,.1);
+
+    transition:.25s;
+}
+
+.telegram:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 30px rgba(139,92,246,.25);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    max-width:1150px;
+    min-height:100vh;
+
+    margin:auto;
+    padding:150px 20px 80px;
+
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+
+    align-items:center;
+    gap:60px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    padding:8px 13px;
+
+    border-radius:100px;
+
+    color:#bca8ff;
+
+    font-size:12px;
+    font-weight:bold;
+
+    background:rgba(139,92,246,.08);
+
+    border:1px solid rgba(139,92,246,.25);
+
+    animation:badgePulse 3s ease-in-out infinite;
+}
+
+.badge::before{
+    content:"";
+    width:7px;
+    height:7px;
+    border-radius:50%;
+
+    background:#9d72ff;
+
+    box-shadow:0 0 15px #9d72ff;
+}
+
+@keyframes badgePulse{
+    0%,100%{box-shadow:0 0 0 rgba(139,92,246,0)}
+    50%{box-shadow:0 0 30px rgba(139,92,246,.15)}
+}
+
+h1{
+    margin-top:24px;
+
+    font-size:clamp(50px,7vw,88px);
+
+    line-height:.92;
+
+    letter-spacing:-6px;
+}
+
+.gradient{
+    background:linear-gradient(
+        90deg,
+        #fff,
+        #a676ff,
+        #5790ff,
+        #fff
+    );
+
+    background-size:250% auto;
+
+    -webkit-background-clip:text;
+    color:transparent;
+
+    animation:gradientMove 5s linear infinite;
+}
+
+@keyframes gradientMove{
+    to{
+        background-position:250% center;
+    }
+}
+
+.hero-text{
+    max-width:590px;
+
+    margin-top:27px;
+
+    color:#92929f;
+
+    font-size:18px;
+
+    line-height:1.65;
+}
+
+.buttons{
+    display:flex;
+    gap:12px;
+
+    margin-top:30px;
+
+    flex-wrap:wrap;
+}
+
+.button{
+    padding:14px 20px;
+
+    border-radius:13px;
+
+    text-decoration:none;
+
+    color:#fff;
+
+    font-weight:bold;
+
+    border:1px solid rgba(255,255,255,.1);
+
+    transition:.3s;
+
+    position:relative;
+    overflow:hidden;
+}
+
+.button::before{
+    content:"";
+
+    position:absolute;
+
+    width:0;
+    height:100%;
+
+    left:50%;
+    top:0;
+
+    background:rgba(255,255,255,.12);
+
+    transform:translateX(-50%);
+
+    transition:.35s;
+}
+
+.button:hover::before{
+    width:100%;
+}
+
+.button:hover{
+    transform:translateY(-4px);
+}
+
+.primary{
+    background:linear-gradient(135deg,#8b5cf6,#557cff);
+
+    box-shadow:
+        0 15px 50px rgba(105,75,255,.22);
+}
+
+.secondary{
+    background:rgba(255,255,255,.035);
+}
+
+/* =========================
+   3D PREVIEW
+========================= */
+
+.visual{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    perspective:1000px;
+}
+
+.preview{
+    width:310px;
+
+    padding:28px;
+
+    border-radius:26px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(31,29,47,.92),
+            rgba(8,8,13,.95)
+        );
+
+    border:1px solid rgba(255,255,255,.11);
+
+    box-shadow:
+        0 40px 100px rgba(0,0,0,.6),
+        0 0 80px rgba(125,78,255,.15);
+
+    transform:rotateY(-12deg) rotateX(5deg);
+
+    animation:previewFloat 5s ease-in-out infinite;
+
+    transition:.4s;
+}
+
+.preview:hover{
+    transform:rotateY(0) rotateX(0) scale(1.04);
+}
+
+@keyframes previewFloat{
+    0%,100%{
+        transform:rotateY(-12deg) rotateX(5deg) translateY(0);
+    }
+
+    50%{
+        transform:rotateY(-7deg) rotateX(3deg) translateY(-14px);
+    }
+}
+
+.preview-label{
+    color:#888896;
+    font-size:12px;
+}
+
+.preview h2{
+    margin-top:10px;
+    font-size:29px;
+}
+
+.line{
+    height:1px;
+
+    margin:22px 0;
+
+    background:rgba(255,255,255,.08);
+}
+
+.preview-row{
+    display:flex;
+    justify-content:space-between;
+
+    padding:13px 0;
+
+    color:#92929f;
+
+    font-size:13px;
+}
+
+.preview-row strong{
+    color:#fff;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+section{
+    max-width:1150px;
+
+    margin:auto;
+
+    padding:100px 20px;
+}
+
+.label{
+    color:#9870ff;
+
+    font-size:12px;
+    font-weight:bold;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    margin-bottom:10px;
+}
+
+.title{
+    font-size:44px;
+
+    letter-spacing:-2px;
+}
+
+.description{
+    margin-top:10px;
+
+    color:#858592;
+
+    line-height:1.6;
+}
+
+/* =========================
+   PRODUCTS
+========================= */
+
+.products{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:18px;
+
+    margin-top:40px;
+}
+
+.product{
+    position:relative;
+
+    padding:27px;
+
+    border-radius:24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.015)
+        );
+
+    border:1px solid rgba(255,255,255,.08);
+
+    overflow:hidden;
+
+    transform-style:preserve-3d;
+
+    transition:
+        transform .15s ease,
+        border-color .3s,
+        box-shadow .3s;
+}
+
+.product::before{
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    left:-70px;
+    top:-70px;
+
+    border-radius:50%;
+
+    background:var(--color);
+
+    filter:blur(75px);
+
+    opacity:.15;
+
+    pointer-events:none;
+}
+
+.product:hover{
+    border-color:rgba(145,100,255,.45);
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.4),
+        0 0 40px rgba(125,78,255,.08);
+}
+
+.icon{
+    width:52px;
+    height:52px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:15px;
+
+    background:rgba(255,255,255,.06);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    font-size:23px;
+
+    margin-bottom:45px;
+
+    transform:translateZ(25px);
+}
+
+.product h3{
+    font-size:21px;
+
+    transform:translateZ(20px);
+}
+
+.product p{
+    margin-top:9px;
+
+    color:#858592;
+
+    font-size:14px;
+
+    line-height:1.5;
+
+    min-height:44px;
+
+    transform:translateZ(15px);
+}
+
+.price{
+    font-size:32px;
+
+    font-weight:900;
+
+    margin:23px 0;
+
+    transform:translateZ(20px);
+}
+
+.price span{
+    color:#aaa;
+    font-size:15px;
+}
+
+.buy{
+    display:block;
+
+    text-align:center;
+
+    padding:13px;
+
+    border-radius:12px;
+
+    background:#fff;
+
+    color:#08080c;
+
+    text-decoration:none;
+
+    font-weight:900;
+
+    transition:.2s;
+
+    transform:translateZ(20px);
+}
+
+.buy:hover{
+    transform:translateZ(20px) scale(1.025);
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+.about{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:18px;
+
+    margin-top:35px;
+}
+
+.about-card{
+    padding:32px;
+
+    border-radius:24px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:rgba(255,255,255,.025);
+
+    transition:.3s;
+}
+
+.about-card:hover{
+    transform:translateY(-5px);
+
+    border-color:rgba(145,100,255,.3);
+}
+
+.about-card h3{
+    font-size:25px;
+}
+
+.about-card p{
+    margin-top:13px;
+
+    color:#888896;
+
+    line-height:1.7;
+}
+
+.stats{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:12px;
+
+    margin-top:25px;
+}
+
+.stat{
+    padding:18px;
+
+    border-radius:15px;
+
+    border:1px solid rgba(255,255,255,.07);
+}
+
+.stat b{
+    font-size:23px;
+}
+
+.stat span{
+    display:block;
+
+    color:#888896;
+
+    font-size:13px;
+
+    margin-top:5px;
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact{
+    text-align:center;
+
+    padding:65px 25px;
+
+    border-radius:27px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(125,78,255,.14),
+            transparent 65%
+        );
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.contact::after{
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+    height:300px;
+
+    background:#7c3aed;
+
+    filter:blur(150px);
+
+    opacity:.12;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+}
+
+.contact>*{
+    position:relative;
+    z-index:2;
+}
+
+.contact p{
+    max-width:600px;
+
+    margin:15px auto;
+
+    color:#8d8d9a;
+
+    line-height:1.6;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    padding:35px 20px;
+
+    text-align:center;
+
+    color:#62626f;
+
+    font-size:13px;
+
+    border-top:1px solid rgba(255,255,255,.07);
+}
+
+/* =========================
+   SCROLL ANIMATION
+========================= */
+
+.reveal{
+    opacity:0;
+
+    transform:translateY(35px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.reveal.show{
+    opacity:1;
+
+    transform:translateY(0);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:800px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .hero{
+        grid-template-columns:1fr;
+
+        padding-top:125px;
+
+        gap:50px;
+    }
+
+    .products{
+        grid-template-columns:1fr;
+    }
+
+    .about{
+        grid-template-columns:1fr;
+    }
+
+    .visual{
+        margin-top:20px;
+    }
+
+    .title{
+        font-size:36px;
+    }
+
+}
+
+@media(max-width:450px){
+
+    nav{
+        padding:0 14px;
+    }
+
+    .logo{
+        font-size:17px;
+    }
+
+    .telegram{
+        padding:9px 11px;
+        font-size:13px;
+    }
+
+    .hero,
+    section{
+        padding-left:16px;
+        padding-right:16px;
+    }
+
+    h1{
+        font-size:52px;
+        letter-spacing:-4px;
+    }
+
+    .hero-text{
+        font-size:16px;
+    }
+
+    .preview{
+        width:275px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+}
+</style>
+</head>
+
+
+<body>
+
+
+<!-- BACKGROUND -->
+
+<div class="background">
+
+    <div class="grid"></div>
+
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+    <div class="glow three"></div>
+
+</div>
+
+<canvas id="particles"></canvas>
+
+<div class="cursor"></div>
+
+
+<!-- HEADER -->
+
+<header>
+
+<nav>
+
+<a class="logo" href="#">
+    Marsianin <span>Studio</span>
+</a>
+
+<div class="nav-links">
+
+<a href="#projects">Проекты</a>
+<a href="#about">О студии</a>
+<a href="#contacts">Контакты</a>
+
+</div>
+
+<a
+class="telegram"
+href="https://t.me/marsianinstudio"
+target="_blank"
+>
+Telegram ↗
+</a>
+
+</nav>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="reveal">
+
+<div class="badge">
+CRMP PROJECT STORE
+</div>
+
+<h1>
+
+Создаём.<br>
+
+<span class="gradient">
+Запускаем.
+</span>
+
+<br>
+
+Развиваем.
+
+</h1>
+
+<p class="hero-text">
+
+Marsianin Studio — магазин CRMP-проектов.
+Выбирай подходящий проект и запускай свой сервер.
+
+</p>
+
+
+<div class="buttons">
+
+<a
+class="button primary"
+href="#projects"
+>
+Смотреть проекты ↓
+</a>
+
+<a
+class="button secondary"
+href="https://t.me/marsianinstudio"
+target="_blank"
+>
+Наш Telegram
+</a>
+
+</div>
+
+</div>
+
+
+<div class="visual reveal">
+
+<div class="preview">
+
+<div class="preview-label">
+MARSIANIN STUDIO
+</div>
+
+<h2>
+CRMP Projects
+</h2>
+
+<div class="line"></div>
+
+<div class="preview-row">
+<span>Проекты</span>
+<strong>03</strong>
+</div>
+
+<div class="preview-row">
+<span>Формат</span>
+<strong>CRMP</strong>
+</div>
+
+<div class="preview-row">
+<span>Связь</span>
+<strong>Telegram</strong>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PROJECTS -->
+
+<section id="projects">
+
+<div class="reveal">
+
+<div class="label">
+Каталог
+</div>
+
+<h2 class="title">
+Выбери свой проект
+</h2>
+
+<p class="description">
+Три варианта под разные задачи. Цены указаны в Telegram Stars.
+</p>
+
+</div>
+
+
+<div class="products">
+
+
+<article
+class="product reveal"
+style="--color:#9b6cff"
+>
+
+<div class="icon">
+👑
+</div>
+
+<h3>
+Black Russia Premium
+</h3>
+
+<p>
+Премиальный вариант CRMP-проекта.
+</p>
+
+<div class="price">
+75 <span>⭐️</span>
+</div>
+
+<a
+class="buy"
+href="https://t.me/marsianinstudio"
+target="_blank"
+>
+Заказать
+</a>
+
+</article>
+
+
+
+<article
+class="product reveal"
+style="--color:#4f8cff"
+>
+
+<div class="icon">
+⚡
+</div>
+
+<h3>
+Black Russia Lite
+</h3>
+
+<p>
+Облегчённый вариант проекта.
+</p>
+
+<div class="price">
+50 <span>⭐️</span>
+</div>
+
+<a
+class="buy"
+href="https://t.me/marsianinstudio"
+target="_blank"
+>
+Заказать
+</a>
+
+</article>
+
+
+
+<article
+class="product reveal"
+style="--color:#35d39a"
+>
+
+<div class="icon">
+💎
+</div>
+
+<h3>
+Black Russia Economy
+</h3>
+
+<p>
+Доступный вариант для запуска CRMP.
+</p>
+
+<div class="price">
+25 <span>⭐️</span>
+</div>
+
+<a
+class="buy"
+href="https://t.me/marsianinstudio"
+target="_blank"
+>
+Заказать
+</a>
+
+</article>
+
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section id="about">
+
+<div class="reveal">
+
+<div class="label">
+О студии
+</div>
+
+<h2 class="title">
+Marsianin Studio
+</h2>
+
+</div>
+
+
+<div class="about">
+
+<div class="about-card reveal">
+
+<h3>
+Проекты в одном месте.
+</h3>
+
+<p>
+Мы собрали CRMP-проекты в удобный каталог.
+Выбирай нужный вариант, переходи в Telegram
+и уточняй детали заказа.
+</p>
+
+</div>
+
+
+<div class="about-card reveal">
+
+<h3>
+Связь
+</h3>
+
+<p>
+По вопросам покупки и дополнительной информации
+обращайся через Telegram.
+</p>
+
+
+<div class="stats">
+
+<div class="stat">
+
+<b>03</b>
+
+<span>
+проекта
+</span>
+
+</div>
+
+<div class="stat">
+
+<b>⭐️</b>
+
+<span>
+Telegram Stars
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section id="contacts">
+
+<div class="contact reveal">
+
+<div class="label">
+Контакты
+</div>
+
+<h2 class="title">
+Готов начать?
+</h2>
+
+<p>
+Напиши нам в Telegram, чтобы узнать подробности
+и оформить заказ.
+</p>
+
+
+<div class="buttons" style="justify-content:center">
+
+<a
+class="button primary"
+href="https://t.me/marsianinstudio"
+target="_blank"
+>
+Marsianin Studio ↗
+</a>
+
+<a
+class="button secondary"
+href="https://t.me/Rodioooon"
+target="_blank"
+>
+@Rodioooon ↗
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<footer>
+
+© 2026 Marsianin Studio · CRMP Project Store
+
+</footer>
+
+
+<script>
+
+/* =========================
+   PARTICLES
+========================= */
+
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+let particles = [];
+
+function resize(){
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+}
+
+resize();
+
+window.addEventListener("resize", resize);
+
+
+for(let i=0;i<80;i++){
+
+    particles.push({
+
+        x:Math.random()*window.innerWidth,
+
+        y:Math.random()*window.innerHeight,
+
+        size:Math.random()*2+0.5,
+
+        speed:Math.random()*0.35+0.1,
+
+        opacity:Math.random()*0.7
+
+    });
+
+}
+
+
+function animateParticles(){
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    particles.forEach(p=>{
+
+        p.y -= p.speed;
+
+        if(p.y < 0){
+
+            p.y = canvas.height;
+
+            p.x = Math.random()*canvas.width;
+
+        }
+
+        ctx.beginPath();
+
+        ctx.arc(
+            p.x,
+            p.y,
+            p.size,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fillStyle =
+            `rgba(180,160,255,${p.opacity})`;
+
+        ctx.fill();
+
+    });
+
+    requestAnimationFrame(animateParticles);
+
+}
+
+animateParticles();
+
+
+/* =========================
+   CURSOR
+========================= */
+
+const cursor =
+document.querySelector(".cursor");
+
+document.addEventListener(
+"mousemove",
+e=>{
+
+    cursor.style.left =
+        e.clientX + "px";
+
+    cursor.style.top =
+        e.clientY + "px";
+
+});
+
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+
+const observer =
+new IntersectionObserver(
+
+entries=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            entry.target.classList.add("show");
+
+        }
+
+    });
+
+},
+
+{
+    threshold:.12
+}
+
+);
+
+
+document
+.querySelectorAll(".reveal")
+.forEach(el=>observer.observe(el));
+
+
+/* =========================
+   3D CARDS
+========================= */
+
+document
+.querySelectorAll(".product")
+.forEach(card=>{
+
+    card.addEventListener(
+    "mousemove",
+    e=>{
+
+        const rect =
+            card.getBoundingClientRect();
+
+        const x =
+            e.clientX - rect.left;
+
+        const y =
+            e.clientY - rect.top;
+
+        const centerX =
+            rect.width / 2;
+
+        const centerY =
+            rect.height / 2;
+
+        const rotateX =
+            ((y-centerY)/centerY)*-5;
+
+        const rotateY =
+            ((x-centerX)/centerX)*5;
+
+        card.style.transform =
+            `perspective(700px)
+             rotateX(${rotateX}deg)
+             rotateY(${rotateY}deg)
+             translateY(-5px)`;
+
+    });
+
+
+    card.addEventListener(
+    "mouseleave",
+    ()=>{
+
+        card.style.transform =
+            "";
+
+    });
+
+});
+
+</script>
+
+
+</body>
+</html>
